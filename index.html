@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KKR Builders London – Transform Your Space</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --off-white: #f4f1eb;
+    --cream: #ede9df;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --gold-dark: #9a7830;
+    --steel: #1e2530;
+    --mid: #6b6560;
+    --accent-red: #c0392b;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--off-white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed; width: 12px; height: 12px;
+    background: var(--gold); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed; width: 40px; height: 40px;
+    border: 1.5px solid var(--gold); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+    opacity: 0.6;
+  }
+  body:hover .cursor { opacity: 1; }
+  a:hover ~ .cursor, button:hover ~ .cursor { width: 20px; height: 20px; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4vw;
+    mix-blend-mode: normal;
+    transition: background 0.4s ease, padding 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    padding: 1rem 4vw;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem; letter-spacing: 0.12em; color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--off-white); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--off-white); text-decoration: none; font-size: 0.82rem;
+    letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+    opacity: 0.75; transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--black) !important;
+    padding: 0.6rem 1.5rem; opacity: 1 !important;
+    font-weight: 500 !important; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 26px; height: 2px; background: var(--off-white); display: block; transition: 0.3s; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; position: relative;
+    display: flex; align-items: flex-end;
+    padding: 0 4vw 8vh;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1510 40%, #0d0d0d 100%);
+  }
+  .hero-bg::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(201,168,76,0.05) 0%, transparent 50%);
+  }
+  /* Architectural grid overlay */
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 1;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.6) 70%, transparent 100%);
+  }
+  .hero-number {
+    position: absolute; right: 4vw; top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(8rem, 18vw, 18rem);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,168,76,0.12);
+    letter-spacing: -0.02em;
+    z-index: 1; user-select: none;
+    animation: fadeInRight 1.2s 0.5s both;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s 0.2s both;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 40px; height: 1px; background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 11rem);
+    line-height: 0.9; letter-spacing: 0.02em;
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 0.8s 0.35s both;
+    margin-top: 70px;
+  }
+  .hero-title .line2 { color: var(--gold); display: block; }
+  .hero-title .line3 { display: block; -webkit-text-stroke: 1px rgba(244,241,235,0.4); color: transparent; }
+  .hero-body {
+    font-size: 1.05rem; line-height: 1.7; max-width: 520px;
+    color: rgba(244,241,235,0.65); margin-bottom: 3rem;
+    animation: fadeInUp 0.8s 0.5s both; font-weight: 300;
+  }
+  .hero-actions {
+    display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+    animation: fadeInUp 0.8s 0.65s both;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    background: var(--gold); color: var(--black);
+    padding: 1.1rem 2.4rem; font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary:hover {
+    background: var(--gold-light); transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(201,168,76,0.3);
+  }
+  .btn-primary .arrow { font-size: 1.1rem; transition: transform 0.25s; }
+  .btn-primary:hover .arrow { transform: translateX(4px); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    color: var(--off-white); text-decoration: none; font-size: 0.85rem;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    border-bottom: 1px solid rgba(244,241,235,0.3);
+    padding-bottom: 3px; transition: color 0.25s, border-color 0.25s;
+  }
+  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+  .hero-stats {
+    position: absolute; right: 4vw; bottom: 8vh; z-index: 2;
+    display: flex; flex-direction: column; gap: 2rem;
+    animation: fadeInRight 0.8s 0.8s both;
+  }
+  .stat { text-align: right; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem; color: var(--gold); line-height: 1;
+    letter-spacing: 0.05em;
+  }
+  .stat-label {
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(244,241,235,0.45); margin-top: 0.2rem;
+  }
+  .hero-scroll-hint {
+    position: absolute; bottom: 8vh; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    z-index: 2; animation: fadeIn 1s 1.2s both;
+  }
+  .scroll-line {
+    width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+  .scroll-text {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(244,241,235,0.4); writing-mode: vertical-rl;
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    background: var(--gold); overflow: hidden; padding: 1rem 0;
+  }
+  .marquee-track {
+    display: flex; gap: 0; width: max-content;
+    animation: marquee 25s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: 0.2em;
+    color: var(--black); white-space: nowrap; padding: 0 2rem;
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+  .marquee-dot { width: 6px; height: 6px; background: var(--black); border-radius: 50%; opacity: 0.5; }
+
+  /* ABOUT */
+  .about {
+    padding: 12vmin 4vw;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; align-items: center;
+    max-width: 1400px; margin: 0 auto;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-img-frame {
+    width: 100%; aspect-ratio: 3/4; background: var(--steel);
+    position: relative; overflow: hidden;
+  }
+  .about-img-frame::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(30,37,48,0.8));
+    z-index: 1;
+  }
+  .about-img-inner {
+    width: 100%; height: 100%;
+    background:
+      linear-gradient(160deg, #1e2530 0%, #111820 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 8rem;
+    color: rgba(201,168,76,0.1); letter-spacing: 0.1em;
+  }
+  .about-badge {
+    position: absolute; bottom: -2rem; right: -2rem;
+    width: 120px; height: 120px; background: var(--gold);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    z-index: 2;
+  }
+  .about-badge-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem;
+    color: var(--black); line-height: 1;
+  }
+  .about-badge-text {
+    font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--black); text-align: center; line-height: 1.3;
+  }
+  .about-accent-line {
+    position: absolute; top: 2rem; left: -2rem;
+    width: 4px; height: 60%; background: var(--gold);
+  }
+  .section-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .section-eyebrow::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--gold); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.1; margin-bottom: 1.8rem;
+    font-weight: 900;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-body {
+    font-size: 1rem; line-height: 1.8; color: rgba(244,241,235,0.65);
+    font-weight: 300; margin-bottom: 2rem;
+  }
+  .about-values { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
+  .about-value {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid rgba(201,168,76,0.12);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .about-value:hover {
+    border-color: rgba(201,168,76,0.4);
+    background: rgba(201,168,76,0.03);
+  }
+  .about-value-icon {
+    font-size: 1.3rem; margin-top: 0.1rem; flex-shrink: 0;
+  }
+  .about-value-title {
+    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.3rem; font-weight: 500;
+  }
+  .about-value-desc {
+    font-size: 0.88rem; line-height: 1.6; color: rgba(244,241,235,0.55);
+  }
+
+  /* SERVICES */
+  .services-section { padding: 12vmin 4vw; background: #0d0d0d; }
+  .services-header { text-align: center; max-width: 600px; margin: 0 auto 6vmin; }
+  .services-header .section-eyebrow { justify-content: center; }
+  .services-header .section-eyebrow::after, .services-header .section-eyebrow::before { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--gold); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    max-width: 1400px; margin: 0 auto;
+  }
+  .service-card {
+    position: relative; overflow: hidden;
+    padding: 3rem 2.5rem;
+    background: #111;
+    border: 1px solid rgba(201,168,76,0.06);
+    transition: background 0.4s, border-color 0.4s, transform 0.4s;
+    cursor: pointer;
+  }
+  .service-card:hover {
+    background: #161410;
+    border-color: rgba(201,168,76,0.25);
+    transform: translateY(-4px);
+    z-index: 1;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--gold);
+    transition: height 0.4s ease;
+  }
+  .service-card:hover::before { height: 100%; }
+  .service-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem; letter-spacing: 0.2em; color: var(--gold-dark);
+    margin-bottom: 2rem;
+  }
+  .service-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700;
+    margin-bottom: 1rem; line-height: 1.2;
+  }
+  .service-desc {
+    font-size: 0.9rem; line-height: 1.7; color: rgba(244,241,235,0.5);
+    font-weight: 300; margin-bottom: 1.5rem;
+  }
+  .service-link {
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); text-decoration: none; font-weight: 500;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: gap 0.2s;
+  }
+  .service-card:hover .service-link { gap: 0.8rem; }
+  .service-card.featured {
+    background: var(--gold); grid-row: span 1;
+    border-color: transparent;
+  }
+  .service-card.featured:hover { background: var(--gold-light); }
+  .service-card.featured .service-num,
+  .service-card.featured .service-title,
+  .service-card.featured .service-desc,
+  .service-card.featured .service-link { color: var(--black); }
+  .service-card.featured .service-desc { color: rgba(10,10,10,0.65); }
+  .service-card.featured::before { background: var(--black); }
+
+  /* PROCESS */
+  .process-section {
+    padding: 12vmin 4vw;
+    max-width: 1400px; margin: 0 auto;
+  }
+  .process-layout {
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 8vw; align-items: start;
+  }
+  .process-sticky { position: sticky; top: 10vh; }
+  .process-steps { display: flex; flex-direction: column; gap: 0; }
+  .process-step {
+    display: grid; grid-template-columns: 60px 1fr;
+    gap: 2rem; padding: 2rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    transition: padding-left 0.3s;
+  }
+  .process-step:hover { padding-left: 1rem; }
+  .process-step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem;
+    color: transparent; -webkit-text-stroke: 1px rgba(201,168,76,0.3);
+    line-height: 1; transition: color 0.3s, -webkit-text-stroke 0.3s;
+  }
+  .process-step:hover .step-num {
+    color: var(--gold); -webkit-text-stroke: 1px transparent;
+  }
+  .step-title {
+    font-family: 'Playfair Display', serif; font-size: 1.3rem;
+    font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .step-desc {
+    font-size: 0.9rem; line-height: 1.7; color: rgba(244,241,235,0.5); font-weight: 300;
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    position: relative; overflow: hidden;
+    padding: 12vmin 4vw;
+    background: var(--gold);
+    text-align: center;
+  }
+  .cta-banner::before {
+    content: 'BUILD'; position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40vw; color: rgba(0,0,0,0.07); line-height: 0.8;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    white-space: nowrap; pointer-events: none; letter-spacing: -0.05em;
+  }
+  .cta-eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(10,10,10,0.5); margin-bottom: 1.5rem;
+  }
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 9rem);
+    color: var(--black); line-height: 0.9;
+    letter-spacing: 0.02em; margin-bottom: 2rem;
+    position: relative; z-index: 1;
+  }
+  .cta-body {
+    font-size: 1.1rem; color: rgba(10,10,10,0.6);
+    max-width: 500px; margin: 0 auto 3rem;
+    line-height: 1.7; font-weight: 300;
+  }
+  .cta-actions { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+  .btn-dark {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    background: var(--black); color: var(--gold);
+    padding: 1.2rem 2.8rem; font-size: 0.9rem; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
+    clip-path: polygon(14px 0%, 100% 0%, calc(100% - 14px) 100%, 0% 100%);
+    transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .btn-dark:hover {
+    background: #1a1a1a; transform: translateY(-3px);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.4);
+  }
+  .btn-outline-dark {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    background: transparent; color: var(--black);
+    padding: 1.2rem 2.8rem; font-size: 0.9rem; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
+    border: 2px solid rgba(10,10,10,0.4);
+    clip-path: polygon(14px 0%, 100% 0%, calc(100% - 14px) 100%, 0% 100%);
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .btn-outline-dark:hover {
+    border-color: var(--black);
+    background: rgba(10,10,10,0.08);
+  }
+  .phone-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: var(--black); letter-spacing: 0.05em;
+    text-decoration: none; display: inline-block;
+    margin-bottom: 3rem; position: relative; z-index: 1;
+    transition: opacity 0.2s;
+  }
+  .phone-big:hover { opacity: 0.7; }
+  .phone-big small {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem; letter-spacing: 0.25em;
+    display: block; text-transform: uppercase;
+    color: rgba(10,10,10,0.5); margin-bottom: 0.3rem;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-section { padding: 12vmin 4vw; background: #080808; }
+  .testimonials-header { max-width: 600px; margin: 0 auto 6vmin; text-align: center; }
+  .testimonials-header .section-eyebrow { justify-content: center; }
+  .testimonials-header .section-eyebrow::before { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--gold); }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+  }
+  .review-card {
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(201,168,76,0.1);
+    background: #0f0f0f;
+    position: relative; transition: border-color 0.3s, background 0.3s;
+  }
+  .review-card:hover { border-color: rgba(201,168,76,0.25); background: #111; }
+  .review-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; color: var(--gold); line-height: 0.8;
+    margin-bottom: 1.2rem; opacity: 0.4;
+  }
+  .review-text {
+    font-size: 0.95rem; line-height: 1.7; color: rgba(244,241,235,0.65);
+    font-style: italic; margin-bottom: 1.5rem; font-weight: 300;
+  }
+  .review-author { display: flex; align-items: center; gap: 0.8rem; }
+  .review-avatar {
+    width: 40px; height: 40px;
+    background: var(--gold); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--black);
+    flex-shrink: 0;
+  }
+  .review-name { font-size: 0.88rem; font-weight: 500; color: var(--off-white); }
+  .review-stars { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; }
+  .review-card.large { grid-column: span 2; }
+
+  /* AREAS */
+  .areas-section {
+    padding: 8vmin 4vw;
+    background: var(--steel);
+    text-align: center;
+  }
+  .areas-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    letter-spacing: 0.12em; margin-bottom: 3rem;
+    color: var(--off-white);
+  }
+  .areas-title span { color: var(--gold); }
+  .areas-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; max-width: 900px; margin: 0 auto; }
+  .area-tag {
+    padding: 0.5rem 1.2rem;
+    border: 1px solid rgba(201,168,76,0.2);
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(244,241,235,0.6);
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .area-tag:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+
+  /* FOOTER */
+  footer {
+    background: #050505; padding: 6vmin 4vw 2rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem; max-width: 1400px; margin: 0 auto 4rem;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem;
+    letter-spacing: 0.1em; color: var(--gold); margin-bottom: 1rem;
+    display: block; text-decoration: none;
+  }
+  .footer-logo span { color: var(--off-white); }
+  .footer-about {
+    font-size: 0.88rem; line-height: 1.7; color: rgba(244,241,235,0.4);
+    font-weight: 300; max-width: 300px;
+  }
+  .footer-contact { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-contact a {
+    font-size: 0.88rem; color: rgba(244,241,235,0.5); text-decoration: none;
+    transition: color 0.2s; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .footer-contact a:hover { color: var(--gold); }
+  .footer-col-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
+    letter-spacing: 0.2em; color: var(--gold); margin-bottom: 1.5rem;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .footer-links a {
+    font-size: 0.85rem; color: rgba(244,241,235,0.45); text-decoration: none;
+    transition: color 0.2s; letter-spacing: 0.05em;
+  }
+  .footer-links a:hover { color: var(--off-white); }
+  .footer-bottom {
+    border-top: 1px solid rgba(201,168,76,0.08);
+    padding-top: 2rem; max-width: 1400px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+    gap: 1rem;
+  }
+  .footer-legal {
+    font-size: 0.75rem; color: rgba(244,241,235,0.25); letter-spacing: 0.05em;
+  }
+  .footer-reg {
+    font-size: 0.72rem; color: rgba(244,241,235,0.2); letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateY(-50%) translateX(30px); }
+    to { opacity: 1; transform: translateY(-50%) translateX(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-stats { display: none; }
+    .hero-number { display: none; }
+    .about { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card.featured { grid-row: span 1; }
+    .process-layout { grid-template-columns: 1fr; }
+    .process-sticky { position: static; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .review-card.large { grid-column: span 1; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Mobile nav */
+  .mobile-nav {
+    position: fixed; inset: 0; background: var(--black); z-index: 99;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2.5rem; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.77,0,0.175,1);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a {
+    font-family: 'Bebas Neue', sans-serif; font-size: 3rem;
+    letter-spacing: 0.1em; color: var(--off-white); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .mobile-nav a:hover { color: var(--gold); }
+  .mobile-close {
+    position: absolute; top: 1.5rem; right: 4vw;
+    font-size: 2rem; color: var(--off-white); cursor: pointer; background: none; border: none;
+    transition: color 0.2s;
+  }
+  .mobile-close:hover { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#process">Process</a>
+  <a href="#testimonials">Reviews</a>
+  <a href="#contact" style="color:var(--gold)">Get a Quote</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">KKR<span>BUILDERS</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<style>
+    .hero-bg img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.1);
+    }
+</style>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <!-- <div class="hero-bg"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq3igAU8RU3ri-MIqIdG0omi9XUbqFSa4fXA&s" alt=""></div> -->
+  <div class="hero-grid"></div>
+  <div class="hero-number">10+</div>
+
+  <div class="hero-content">
+    <!-- <div class="hero-eyebrow">London's Premier Building Company</div> -->
+    <h1 class="hero-title">
+      BUILD<br>
+      <span class="line2">BEYOND</span>
+      <span class="line3">LIMITS</span>
+    </h1>
+    <p class="hero-body">
+      From loft conversions to full new builds — KKR Builders London delivers
+      exceptional craftsmanship with 10+ years of combined experience. Trusted,
+      transparent, and built around you.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">
+        Get Your Free Quote <span class="arrow">→</span>
+      </a>
+      <a href="#services" class="btn-ghost">View Our Services</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Client Satisfaction</div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">Extensions <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Loft Conversions <span class="marquee-dot"></span></div>
+    <div class="marquee-item">New Builds <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Basement Conversions <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Renovations <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Design & Build <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Commercial Projects <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Refurbishments <span class="marquee-dot"></span></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="marquee-item">Extensions <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Loft Conversions <span class="marquee-dot"></span></div>
+    <div class="marquee-item">New Builds <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Basement Conversions <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Renovations <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Design & Build <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Commercial Projects <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Refurbishments <span class="marquee-dot"></span></div>
+  </div>
+</div>
+
+<style>
+    .about-img-inner img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-visual reveal">
+    <div class="about-accent-line"></div>
+    <div class="about-img-frame">
+      <div class="about-img-inner">
+        <img src="https://pinnacleworks.co.uk/wp-content/uploads/2025/05/image-5.jpg" alt="">
+      </div>
+    </div>
+    <div class="about-badge">
+      <div class="about-badge-num">10+</div>
+      <div class="about-badge-text">YRS<br>COMBINED</div>
+    </div>
+  </div>
+
+  <div class="about-text">
+    <div class="section-eyebrow reveal">Who We Are</div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Reliability Meets <em>Exceptional</em> Craftsmanship
+    </h2>
+    <p class="section-body reveal reveal-delay-2">
+      Founded by Mitch and Phil — two directors with a passion for precision and
+      a deep commitment to their clients — Elite Builders London is a high-quality
+      building company based in South East London. We specialise in both residential
+      and commercial projects across Greater London, from simple refurbishments to
+      large-scale new builds.
+    </p>
+    <p class="section-body reveal reveal-delay-2">
+      Our team includes project managers, architects, designers, and skilled
+      tradespeople from every discipline — meaning you never need to juggle multiple
+      contractors. One team. Total accountability. Outstanding results.
+    </p>
+
+    <div class="about-values">
+      <div class="about-value reveal reveal-delay-1">
+        <span class="about-value-icon">🏆</span>
+        <div>
+          <div class="about-value-title">Uncompromising Quality</div>
+          <div class="about-value-desc">Only the best materials and modern building methods on every single project, no matter the size.</div>
+        </div>
+      </div>
+      <div class="about-value reveal reveal-delay-2">
+        <span class="about-value-icon">📞</span>
+        <div>
+          <div class="about-value-title">Always Reachable</div>
+          <div class="about-value-desc">No dodged calls, no surprises. We're transparent at every stage and answer every question.</div>
+        </div>
+      </div>
+      <div class="about-value reveal reveal-delay-3">
+        <span class="about-value-icon">⏱️</span>
+        <div>
+          <div class="about-value-title">On Time. On Budget.</div>
+          <div class="about-value-desc">Clear quotes, rigorous planning, and disciplined project management keeps us to our word.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-header">
+    <div class="section-eyebrow reveal">What We Do</div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Full-Spectrum <em>Building</em> Services
+    </h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <span class="service-icon">🏠</span>
+      <h3 class="service-title">Home Extensions</h3>
+      <p class="service-desc">Rear, side-return, wrap-around — we extend your living space intelligently, adding up to 20% more property value. No garden wasted unnecessarily.</p>
+      <a href="#contact" class="service-link">Enquire Now →</a>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">02</div>
+      <span class="service-icon">🏗️</span>
+      <h3 class="service-title">Loft Conversions</h3>
+      <p class="service-desc">Velux, rear dormer, or hip-to-gable — transform that unused roof space into a stunning bedroom, office, or suite. Takes just 6–8 weeks.</p>
+      <a href="#contact" class="service-link">Enquire Now →</a>
+    </div>
+    <div class="service-card featured reveal reveal-delay-2">
+      <div class="service-num">03</div>
+      <span class="service-icon">⭐</span>
+      <h3 class="service-title">Design & Build</h3>
+      <p class="service-desc">One seamless contract from concept to completion. Our architects, designers and builders collaborate to bring your exact vision to life.</p>
+      <a href="#contact" class="service-link">Our Signature Service →</a>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">04</div>
+      <span class="service-icon">🏢</span>
+      <h3 class="service-title">New Builds</h3>
+      <p class="service-desc">Purpose-built homes constructed to 21st-century energy efficiency standards. Residential and commercial — from single homes to multi-unit developments.</p>
+      <a href="#contact" class="service-link">Enquire Now →</a>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">05</div>
+      <span class="service-icon">🏚️</span>
+      <h3 class="service-title">Basement Conversions</h3>
+      <p class="service-desc">When you can't build up or out, go down. We're one of London's leading basement conversion specialists — transforming dark voids into premium spaces.</p>
+      <a href="#contact" class="service-link">Enquire Now →</a>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">06</div>
+      <span class="service-icon">🔨</span>
+      <h3 class="service-title">Renovations & Refurbs</h3>
+      <p class="service-desc">Full property refurbishments, kitchen redesigns, bathroom transformations, plastering, joinery, roofing and more — all under one roof.</p>
+      <a href="#contact" class="service-link">Enquire Now →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section" id="process">
+  <div class="process-layout">
+    <div class="process-sticky">
+      <div class="section-eyebrow reveal">How It Works</div>
+      <h2 class="section-title reveal reveal-delay-1">
+        Simple. Clear. <em>Delivered.</em>
+      </h2>
+      <p class="section-body reveal reveal-delay-2">
+        We believe building should be a positive experience. That's why we've
+        refined a process that keeps you informed, protected, and excited at every stage.
+      </p>
+      <a href="#contact" class="btn-primary reveal reveal-delay-3" style="margin-top:1rem; display:inline-flex;">
+        Start Your Project <span class="arrow">→</span>
+      </a>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <div>
+          <h3 class="step-title">Free Site Survey</h3>
+          <p class="step-desc">We visit your property to understand your requirements fully — on your terms, at your time. No obligation, no pressure.</p>
+        </div>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="step-num">02</div>
+        <div>
+          <h3 class="step-title">Detailed Quote</h3>
+          <p class="step-desc">You receive a comprehensive, transparent quote breaking down every cost. No hidden fees, no vague estimates. Ever.</p>
+        </div>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="step-num">03</div>
+        <div>
+          <h3 class="step-title">Design & Planning</h3>
+          <p class="step-desc">Our architectural designers work with you to finalise plans. We handle planning permission applications for maximum approval chances.</p>
+        </div>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="step-num">04</div>
+        <div>
+          <h3 class="step-title">Build & Management</h3>
+          <p class="step-desc">Your dedicated project manager oversees every detail. You get regular updates and direct access — always reachable, always accountable.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">05</div>
+        <div>
+          <h3 class="step-title">Handover & Beyond</h3>
+          <p class="step-desc">We only sign off when you're 100% satisfied. Our reputation is built on the quality of our finished work — and we take that seriously.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="contact">
+  <p class="cta-eyebrow">Ready to Transform Your Property?</p>
+  <h2 class="cta-title">YOUR DREAM<br>BUILD STARTS<br>TODAY</h2>
+  <p class="cta-body">Don't put it off any longer. Hundreds of London homeowners have already trusted us with their biggest investment — join them.</p>
+  <a href="tel:02078673935" class="phone-big">
+    <small>Call Us Now — It's Free</small>
+    0744 821 6711
+  </a>
+  <br>
+  <div class="cta-actions">
+    <a href="mailto:faruku860@gmail.com" class="btn-dark"></a>
+      📧 Email Us Today
+    </a>
+    <a href="tel:02078673935" class="btn-outline-dark">
+      📞 0207 867 3935
+    </a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="testimonials-header">
+    <div class="section-eyebrow reveal">Client Reviews</div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Don't Take Our Word <em>For It</em>
+    </h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card large reveal">
+      <div class="review-quote">"</div>
+      <p class="review-text">Phil, Mitch and the Elite team have been a pleasure to work with. We had the daunting task of a full renovation and they handled everything professionally, on time and on budget. The quality of work is outstanding — I wouldn't hesitate to recommend them.</p>
+      <div class="review-author">
+        <div class="review-avatar">SR</div>
+        <div>
+          <div class="review-name">S. Richards</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal reveal-delay-1">
+      <div class="review-quote">"</div>
+      <p class="review-text">They finished my flat refurb on time and on budget. Great staff and brilliant support throughout. Highly recommended.</p>
+      <div class="review-author">
+        <div class="review-avatar">JM</div>
+        <div>
+          <div class="review-name">J. Mitchel</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-quote">"</div>
+      <p class="review-text">Elite Builders completed a rear extension for us recently. Very pleased with the entire process — honest, decent people. Would recommend without hesitation.</p>
+      <div class="review-author">
+        <div class="review-avatar">AK</div>
+        <div>
+          <div class="review-name">A. Khan</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal reveal-delay-1">
+      <div class="review-quote">"</div>
+      <p class="review-text">Had a really positive experience working with this company. Honest, transparent, and the loft conversion exceeded expectations. Truly elite.</p>
+      <div class="review-author">
+        <div class="review-avatar">LT</div>
+        <div>
+          <div class="review-name">L. Thompson</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal reveal-delay-2">
+      <div class="review-quote">"</div>
+      <p class="review-text">From first call to completion, I always knew what was happening. My project manager was responsive and the whole team were professional. 5 stars.</p>
+      <div class="review-author">
+        <div class="review-avatar">PD</div>
+        <div>
+          <div class="review-name">P. Davies</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AREAS -->
+<section class="areas-section">
+  <h2 class="areas-title reveal">Serving All of <span>Greater London</span></h2>
+  <div class="areas-tags">
+    <span class="area-tag">Chelsea</span><span class="area-tag">Kensington</span>
+    <span class="area-tag">Westminster</span><span class="area-tag">Battersea</span>
+    <span class="area-tag">Clapham</span><span class="area-tag">Shoreditch</span>
+    <span class="area-tag">Lambeth</span><span class="area-tag">Paddington</span>
+    <span class="area-tag">Barnes</span><span class="area-tag">Teddington</span>
+    <span class="area-tag">Kew</span><span class="area-tag">Brentford</span>
+    <span class="area-tag">Finchley</span><span class="area-tag">Dulwich</span>
+    <span class="area-tag">Pimlico</span><span class="area-tag">Sidcup</span>
+    <span class="area-tag">Holloway</span><span class="area-tag">Raynes Park</span>
+    <span class="area-tag">Morden</span><span class="area-tag">Edmonton</span>
+    <span class="area-tag">Isle of Dogs</span><span class="area-tag">Hoxton</span>
+    <span class="area-tag">Purley</span><span class="area-tag">Chislehurst</span>
+    <span class="area-tag">And Many More...</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="#" class="footer-logo">KKR<span>BUILDERS</span></a>
+      <p class="footer-about">A high-quality building company based in South East London, specialising in residential and commercial projects across Greater London. Trusted by hundreds of clients since our founding.</p>
+      <div class="footer-contact">
+        <a href="tel:02078673935">📞 0207 867 3935</a>
+        <a href="tel:07522477207">📞 07522 477 207</a>
+        <a href="mailto:info@elitebuilderslondon.co.uk">✉️ info@elitebuilderslondon.co.uk</a>
+        <a href="#">📍 22 Wenlock Road, London, N1 7GU</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#services">Home Extensions</a></li>
+        <li><a href="#services">Loft Conversions</a></li>
+        <li><a href="#services">New Builds</a></li>
+        <li><a href="#services">Basement Conversions</a></li>
+        <li><a href="#services">Design & Build</a></li>
+        <li><a href="#services">Renovations</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#process">Our Process</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#areas">Areas We Cover</a></li>
+        <li><a href="#contact">Get a Quote</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Info</div>
+      <ul class="footer-links">
+        <li><a href="#">Planning Permission</a></li>
+        <li><a href="#">Building Regulations</a></li>
+        <li><a href="#">Party Wall Act</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-legal">© 2024 Elite Builders Team London LTD. All rights reserved.</p>
+    <p class="footer-reg">Company No: 13835470 — Registered in England & Wales</p>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+  function animateCursor() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  document.querySelectorAll('a, button, .service-card, .about-value').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px'; cursor.style.height = '18px';
+      cursorRing.style.width = '55px'; cursorRing.style.height = '55px';
+      cursorRing.style.opacity = '0.4';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px'; cursor.style.height = '12px';
+      cursorRing.style.width = '40px'; cursorRing.style.height = '40px';
+      cursorRing.style.opacity = '0.6';
+    });
+  });
+
+  // Sticky nav
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Mobile nav
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileClose = document.getElementById('mobileClose');
+  hamburger.addEventListener('click', () => mobileNav.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('open')));
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => revealObserver.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Counter animation for hero stats
+  function animateCounter(el, target, duration = 1800) {
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { el.textContent = target + '+'; clearInterval(timer); return; }
+      el.textContent = Math.floor(start) + '+';
+    }, 16);
+  }
+
+  // Parallax on hero number
+  const heroNum = document.querySelector('.hero-number');
+  window.addEventListener('scroll', () => {
+    if (heroNum) {
+      heroNum.style.transform = `translateY(calc(-50% + ${window.scrollY * 0.3}px)) rotate(90deg)`;
+    }
+  });
+</script>
+</body>
+</html>
